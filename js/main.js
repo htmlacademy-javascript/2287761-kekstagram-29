@@ -63,6 +63,11 @@ const COMMENTS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+const PHOTOS_COUNT = 25;
+
+let generatedPhotoId = 0;
+let generatedCommentsId = 0;
+
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
   const upper = Math.floor(Math.max(a, b));
@@ -70,18 +75,21 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
+const getPhotoId = () => (generatedPhotoId += 1);
+const getCommentId = () => (generatedCommentsId += 1);
+
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 const createTextComment = () => {
   let randomCountSentence = getRandomInteger(1, 2);
-  const commentsCopy = COMMENTS;
+  const commentsCopy = COMMENTS.slice(0);
   let text = '';
 
   for (randomCountSentence; randomCountSentence > 0; randomCountSentence--) {
     const randomCommentsIndex = getRandomInteger(0, commentsCopy.length - 1);
 
     if (randomCountSentence !== 1) {
-      commentsCopy[randomCommentsIndex] = `${commentsCopy[randomCommentsIndex]} `
+      commentsCopy[randomCommentsIndex] = `${commentsCopy[randomCommentsIndex]} `;
     }
 
     text += commentsCopy[randomCommentsIndex];
@@ -92,16 +100,18 @@ const createTextComment = () => {
 };
 
 const createComment = () => ({
-  id: getRandomInteger(1, 30),
+  id: getCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
   message: createTextComment(),
   name: getRandomArrayElement(COMMENTATOR_NAMES)
 });
 
 const createPhoto = () => ({
-  id: getRandomInteger(1, 25),
+  id: getPhotoId(),
   url: `photos/${getRandomInteger(1, 25)}.jpg`,
   description: getRandomArrayElement(DESCRIPTION_PHOTO),
   likes: getRandomInteger(15, 200),
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
+
+const GALLERY = Array.from({length: PHOTOS_COUNT}, createPhoto);
