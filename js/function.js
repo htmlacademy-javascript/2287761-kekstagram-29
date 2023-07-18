@@ -28,6 +28,34 @@ function getNumber(text) {
   return parseInt(number, 10);
 }
 
-isTextLength ('проверяемая строка', 20);
-isPalindrom ('топот');
+//Функция перевода времени в минуты
+const getTimeInMinutes = (time) => {
+
+  const TIME_HOURS = +time.split(':')[0];
+  const TIME_MINUTES = +time.split(':')[1];
+
+  return TIME_HOURS * 60 + TIME_MINUTES;
+};
+
+//Функция проверки рабочего времени
+const isWorkTime = (startWorkTime, endWorkTime, startMeeting, durationMeeting) => {
+
+  const START_MEETING_IN_MINUTES = getTimeInMinutes(startMeeting);
+  const END_MEETING_IN_MINUTES = START_MEETING_IN_MINUTES + durationMeeting;
+
+  if (getTimeInMinutes(startWorkTime) <= START_MEETING_IN_MINUTES && getTimeInMinutes(endWorkTime) >= END_MEETING_IN_MINUTES) {
+    return true;
+  }
+
+  return false;
+};
+
+
+isWorkTime('08:00', '17:30', '14:00', 90);
+isWorkTime('8:0', '10:0', '8:0', 120);
+isWorkTime('08:00', '14:30', '14:00', 90);
+isWorkTime('14:00', '17:30', '08:0', 90);
+isWorkTime('8:00', '17:30', '08:00', 900);
+isTextLength('проверяемая строка', 20);
+isPalindrom('топот');
 getNumber('1 кефир, 0.5 батона');
