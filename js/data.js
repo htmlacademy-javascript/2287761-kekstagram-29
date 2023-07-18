@@ -102,5 +102,3 @@ const createPhoto = () => ({
 });
 
 const GALLERY = Array.from({length: PHOTOS_COUNT}, createPhoto);
-
-console.log(GALLERY);
