@@ -101,4 +101,6 @@ const createPhoto = () => ({
   comments: Array.from({length: getRandomInteger(0, 30)}, createComment)
 });
 
-const GALLERY = Array.from({length: PHOTOS_COUNT}, createPhoto);
+const createGallery = () => Array.from({length: PHOTOS_COUNT}, createPhoto);
+
+export {createGallery};
