@@ -67,7 +67,7 @@ const COMMENTS = [
 
 const PHOTOS_COUNT = 25;
 
-let arrayForGeneratePhotoUrl = new Array();
+const arrayForGeneratePhotoUrl = new Array();
 
 for (let i = 1; i <= PHOTOS_COUNT; i++) {
   arrayForGeneratePhotoUrl.push(i);
